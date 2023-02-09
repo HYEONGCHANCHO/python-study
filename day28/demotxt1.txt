@@ -1,0 +1,5 @@
+korea : 100computer : 100english : 100
+ science : 80
+ math : 80
+ science : 80
+ math : 80
