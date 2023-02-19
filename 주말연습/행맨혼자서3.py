@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import random
 import os
 HANGMAN_PICS = ['''
@@ -60,20 +59,21 @@ def makeguess(oldguess):
             print("이미 물어본 글자입니다.")
         else:
             return guess
+        
 def cwWordCheck(newGuess,secretWord,cword,wword):
     if newGuess in secretWord:
         cword+=newGuess
     else:
         wword+=newGuess
-    return cword,wword            
+    return cword,wword
 
 def makeBlank(secretWord,newGuess,blank):
     for i in range(len(secretWord)):
         if newGuess==secretWord[i]:
             blank= blank[:i]+secretWord[i]+blank[i+1:]
-        return blank
+    return blank
 
-def displayMan(newGuess,wword,secretWord,cword,blank,Gameset):
+def displayMan(wword,blank):
     print(HANGMAN_PICS[len(wword)])
     print(f"정답 : {blank}\n")
     print(f"오답 : {wword}\n")
@@ -88,9 +88,7 @@ def firstshow(words):
 # =========================================================
 secretWord=makesecret(words)
 blank='-'*len(secretWord)
-
 firstshow(words)
-
 
 while True:
 
@@ -99,12 +97,14 @@ while True:
     #     cword+=newGuess
     # else:
     #     wword+=newGuess
-    cwWordCheck(newGuess,secretWord,cword,wword)
-    makeBlank(secretWord,newGuess,blank)
+    cword,wword=cwWordCheck(newGuess,secretWord,cword,wword)
+    print("cword",cword)
+    print("wword",wword)
+    blank=makeBlank(secretWord,newGuess,blank)
     # for i in range(len(secretWord)):
     #     if newGuess==secretWord[i]:
     #         blank=blank[:i]+secretWord[i]+blank[i+1:]
-    displayMan(newGuess,wword,secretWord,cword,blank,Gameset)
+    displayMan(wword,blank)
     if secretWord not in cword:
         pass
     else:
